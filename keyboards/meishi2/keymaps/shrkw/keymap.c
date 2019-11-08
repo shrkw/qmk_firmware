@@ -26,6 +26,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MCR1:
       if (record->event.pressed) {
+        SEND_STRING(SS_LALT("D83EDD14"));  // 🤔
       }
       return false;
       break;
