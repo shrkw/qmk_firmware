@@ -15,41 +15,82 @@
  */
 #include QMK_KEYBOARD_H
 
+#define _QWERTY 0
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 3
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   MCR1,
   MCR2,
   MCR3,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case MCR1:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT("D83EDD14"));  // 🤔
-      }
-      return false;
-      break;
-    case MCR2:
-      if (record->event.pressed) {
-        send_unicode_hex_string("0035 0030 0030 0030 5146 5186 6B32 3057 3044 0021");  // 5000兆円欲しい!
-      }
-      return false;
-      break;
-    case MCR3:
-      if (record->event.pressed) {
-        SEND_STRING("hellohello");
-      }
-      return false;
-      break;
-  }
-  return true;
+  LOWER,
+  RAISE,
+  ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    MCR1,  MCR2,  LGUI(LALT(KC_LEFT)), LGUI(LALT(KC_RIGHT)) \
-  )
+  [_QWERTY] = LAYOUT(
+    KC_A,  KC_B,  LT(_LOWER, KC_3), LT(_RAISE, KC_4) \
+  ),
+  [_LOWER] = LAYOUT(
+    KC_1,  KC_2,  _______, _______ \
+  ),
+  [_RAISE] = LAYOUT(
+    KC_O,  KC_P,  _______, _______ \
+  ),
+  [_ADJUST] = LAYOUT(
+    KC_Z,  KC_X,  _______, _______ \
+  ),
+};
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case ADJUST:
+        if (record->event.pressed) {
+          layer_on(_ADJUST);
+        } else {
+          layer_off(_ADJUST);
+        }
+        return false;
+        break;
+  }
+  return true;
 };
 
 void matrix_init_user(void) {
