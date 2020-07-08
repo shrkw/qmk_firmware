@@ -52,7 +52,9 @@ enum macro_keycodes {
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LMOD  RGB_MOD
-#define KC_GUIEI GUI_T(KC_LANG2)
+#define KC_GUIEI LCMD_T(KC_LANG2)
+#define KC_GUI_N RCMD_T(KC_N)
+#define KC_SFT_M RSFT_T(KC_M)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCTL,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  BSPC,\
+       LSFT,     Z,     X,     C,     V,     B,                  GUI_N, SFT_M,  COMM,   DOT,  SLSH,  BSPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
                               //`--------------------'  `--------------------'
