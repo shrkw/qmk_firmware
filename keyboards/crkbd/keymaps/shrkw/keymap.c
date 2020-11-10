@@ -56,6 +56,7 @@ enum macro_keycodes {
 #define KC_GUI_N RCMD_T(KC_N)
 #define KC_SFT_M RSFT_T(KC_M)
 #define KC_ALTKN ALT_T(KC_LANG1)
+#define KC_CMD_E RCMD_T(KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         TAB,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,   F11,   F12, XXXXX, XXXXX, XXXXX,                   LEFT,  PGDN,  PGUP, RIGHT,  COLN,  SCLN,\
+       LCTL,   F11,   F12, XXXXX, XXXXX, XXXXX,                    END,  PGDN,  PGUP,  HOME,  COLN,  SCLN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,  BSPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,  TILD, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LCBR,  RCBR,  PIPE,  BSLS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
+                                  GUIEI, LOWER,   SPC,    CMD_E, RAISE, ALTKN \
                               //`--------------------'  `--------------------'
   ),
 
